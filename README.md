@@ -57,7 +57,7 @@ terraform apply -var 'access-key=YOUR_AWS_ACCESS_KEY' -var 'secret-key=YOUR_AWS_
 3. Get .ovpn client settings. In the end of "terraform apply" stdout should be instruction how to get CLIENTSETTINGS.ovpn. e.g.:
 ```
 Don't forget to get client .ovpn settings, execute this:
-ssh -i ~/.ssh/id_rsa.pub ec2-user@PUBLICIP cat CLIENTSETTINGS.ovpn > CLIENTSETTINGS.ovpn
+ssh -i ~/.ssh/id_rsa ec2-user@PUBLICIP cat CLIENTSETTINGS.ovpn > CLIENTSETTINGS.ovpn
 ```
 4. Connect to vpn:
 ```
@@ -144,9 +144,9 @@ terraform apply \
 ```
 ### Generating .ovpn settings for new user:
 ```
-ssh -i ~/.ssh/id_rsa.pub ec2-user@PUBLICIP sudo docker run -v /opt/openvpn/etc:/etc/openvpn --rm -i kylemanna/openvpn easyrsa build-client-full NEWUSERNAME nopass
+ssh -i ~/.ssh/id_rsa ec2-user@PUBLICIP sudo docker run -v /opt/openvpn/etc:/etc/openvpn --rm -i kylemanna/openvpn easyrsa build-client-full NEWUSERNAME nopass
 
-ssh -i ~/.ssh/id_rsa.pub ec2-user@PUBLICIP "sudo docker run -v /opt/openvpn/etc:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient NEWUSERNAME > NEWUSERNAME.ovpn"
+ssh -i ~/.ssh/id_rsa ec2-user@PUBLICIP "sudo docker run -v /opt/openvpn/etc:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient NEWUSERNAME > NEWUSERNAME.ovpn"
 
-ssh -i ~/.ssh/id_rsa.pub ec2-user@PUBLICIP cat NEWUSERNAME.ovpn > NEWUSERNAME.ovpn
+ssh -i ~/.ssh/id_rsa ec2-user@PUBLICIP cat NEWUSERNAME.ovpn > NEWUSERNAME.ovpn
 ```
