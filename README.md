@@ -33,8 +33,8 @@ Terraform creates aws instance, installs docker, generates all necessary OpenVPN
 
 5. Terraform provisioner doesn't support ssh private key with password yet.If your id_rsa is ecrypted with password you will need to create temporary copy without password: 
 ```
-cp -p ~.ssh/id_rsa ~.ssh/id_rsa_wp
-ssh-keygen -p -f ~.ssh/id_rsa_wp
+cp -p ~./ssh/id_rsa ~.ssh/id_rsa_wp
+ssh-keygen -p -f ~./ssh/id_rsa_wp
 ```
 6. Install git on your PC https://git-scm.com/downloads
 
