@@ -3,8 +3,6 @@ variable "ssh-private-key-path" {default = "~/.ssh/id_rsa"}
 variable "port" {default = "1194"}
 variable "proto" {default = "udp"}
 variable "custom-vpn-settings" {default = ""}
-variable "access-key" {}
-variable "secret-key" {}
 variable "region" {default = "us-east-1"}
 variable "sg-name" {default = "terraform-aws-openvpn"}
 variable "key-pair-name" {default = "terraform-aws-openvpn"}
@@ -12,8 +10,6 @@ variable "instance-name" {default = "terraform-aws-openvpn"}
 variable "instance-type" {default = "t2.micro"}
 
 provider "aws" {
-  access_key = "${var.access-key}"
-  secret_key = "${var.secret-key}"
   region     = "${var.region}"
 }
 resource "aws_key_pair" "key-pair" {
@@ -51,9 +47,9 @@ data "aws_ami" "amazon-linux-ami" {
   }
   filter {
     name   = "name"
-    values = ["*amzn-ami-hvm-*-x86_64-gp2"]
+    values = ["*amzn2-ami-hvm-*-x86_64-gp2"]
   }
-  name_regex = "amzn-ami-hvm-[.0-9]*-x86_64-gp2"
+  name_regex = "amzn2-ami-hvm-[.0-9]*-x86_64-gp2"
 }
 resource "aws_instance" "openvpn" {
   ami           = "${data.aws_ami.amazon-linux-ami.id}"
