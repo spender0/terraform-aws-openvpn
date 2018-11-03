@@ -11,48 +11,54 @@
 
 ## Features:
 
-1. No need to mess with tons of OpenVPN configs and certificates, all is generated automatically. 
+* No need to mess with tons of OpenVPN configs and certificates, all is generated automatically. 
 
-2. Customization of OpenVPN configs is also implemented.
+* Customization of OpenVPN configs is also implemented.
 
-3. AWS Free Tier. During first 12 months of AWS usage you have AWS Free Tier https://aws.amazon.com/free/  
+* AWS Free Tier. During first 12 months of AWS usage you have AWS Free Tier https://aws.amazon.com/free/  
 That means if you start OpenVPN using t2.micro (default) you will not pay for that during next 12 months.
 
-4. Installation of OpenVPN is based on the best OpenVPN docker image https://hub.docker.com/r/kylemanna/openvpn/.
+* Installation of OpenVPN is based on the best OpenVPN docker image https://hub.docker.com/r/kylemanna/openvpn/.
 Terraform creates aws instance, installs docker, generates all necessary OpenVPN configs and certificates, starts OpenVPN server via docker. 
 
 ## Requirements:
 
-1. Create AWS account (if not exists): https://aws.amazon.com/resources/create-account
+* Create AWS account (if not exists): https://aws.amazon.com/resources/create-account
 
-2. Сreate aws access key and secret key and save them somewhere: https://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html
+* Сreate aws access key and secret key and save them somewhere: https://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html
 
-3. Install terraform on your PC: https://www.terraform.io/downloads.html
+* Install and configure aws cli
 
-4. Make sure you have ssh private and public keys on your PC: https://help.skysilk.com/support/solutions/articles/9000108363-how-to-generate-ssh-keys-on-windows-linux-and-mac-os-x 
+`aws configure`
 
-5. Terraform provisioner doesn't support ssh private key with password yet.If your id_rsa is ecrypted with password you will need to create temporary copy without password: 
+* Install terraform on your PC: https://www.terraform.io/downloads.html
+
+* Make sure you have ssh private and public keys on your PC: https://help.skysilk.com/support/solutions/articles/9000108363-how-to-generate-ssh-keys-on-windows-linux-and-mac-os-x 
+
+* Terraform provisioner doesn't support ssh private key with password yet.If your id_rsa is ecrypted with password you will need to create temporary copy without password: 
+
 ```
 cp -p ~.ssh/id_rsa ~.ssh/id_rsa_wp
 ssh-keygen -p -f ~.ssh/id_rsa_wp
 ```
-6. Install git on your PC https://git-scm.com/downloads
 
-7. (optional) Install OpenVPN client on your PC: https://openvpn.net/index.php/download/community-downloads.html
+* Install git on your PC https://git-scm.com/downloads
 
-8. (optional) Find and install OpenVPN client on your smartphone from applestore or googleplay
+* (optional) Install OpenVPN client on your PC: https://openvpn.net/index.php/download/community-downloads.html
+
+* (optional) Find and install OpenVPN client on your smartphone from applestore or googleplay
 
 ## Basic usage
 	
-1. First start preparations:
+1. First run
 ```
 git clone https://github.com/spender0/terraform-aws-openvpn.git
 cd terraform-aws-openvpn
 terraform init
 ```
-2. Create OpenVPN server: 
+2. Deploy OpenVPN server: 
 ```
-terraform apply -var 'access-key=YOUR_AWS_ACCESS_KEY' -var 'secret-key=YOUR_AWS_SECRET_KEY'
+terraform apply
 ```
 3. Get .ovpn client settings. In the end of "terraform apply" stdout should be instruction how to get CLIENTSETTINGS.ovpn. e.g.:
 ```
@@ -136,8 +142,6 @@ Possible values:
 ### e.g. to force OpenVPN to pretend it is https service, set client mtu 1400, set sndbuf 0, set rcvbuf 0:
 ```
 terraform apply \
--var 'access-key=YOUR_AWS_ACCESS_KEY' \
--var 'secret-key=YOUR_AWS_SECRET_KEY' \
 -var 'port=443' \
 -var 'proto=tcp' \
 -var 'custom-vpn-settings=-e "sndbuf 0" -e "rcvbuf 0" -m 1400'
