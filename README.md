@@ -50,22 +50,22 @@ ssh-keygen -p -f ~/.ssh/id_rsa_wp
 
 ## Basic usage
 	
-1. First run
+* First run
 ```
 git clone https://github.com/spender0/terraform-aws-openvpn.git
 cd terraform-aws-openvpn
 terraform init
 ```
-2. Deploy OpenVPN server: 
+* Deploy OpenVPN server: 
 ```
 terraform apply
 ```
-3. Get .ovpn client settings. In the end of "terraform apply" stdout should be instruction how to get CLIENTSETTINGS.ovpn. e.g.:
+* Get .ovpn client settings. In the end of "terraform apply" stdout should be instruction how to get CLIENTSETTINGS.ovpn. e.g.:
 ```
 Don't forget to get client .ovpn settings, execute this:
 ssh -i ~/.ssh/id_rsa ec2-user@PUBLICIP cat CLIENTSETTINGS.ovpn > CLIENTSETTINGS.ovpn
 ```
-4. Connect to vpn:
+* Connect to vpn:
 ```
 $ sudo openvpn CLIENTSETTINGS.ovpn  
 ```
