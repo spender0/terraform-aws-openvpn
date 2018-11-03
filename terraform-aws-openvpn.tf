@@ -84,6 +84,6 @@ resource "aws_instance" "openvpn" {
 output "get-client-settings" {
   value = [
     "Don't forget to get client .ovpn settings, execute this:",
-    "ssh -i ~/.ssh/id_rsa.pub ec2-user@${aws_instance.openvpn.public_ip} cat CLIENTSETTINGS.ovpn > CLIENTSETTINGS.ovpn"
+    "ssh -i ~/.ssh/id_rsa ec2-user@${aws_instance.openvpn.public_ip} cat CLIENTSETTINGS.ovpn > CLIENTSETTINGS.ovpn"
   ] 
 }
