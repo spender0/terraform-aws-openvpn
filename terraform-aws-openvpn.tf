@@ -65,7 +65,7 @@ resource "aws_instance" "openvpn" {
   }
   provisioner "remote-exec" {
     inline = [
-      "sudo yum -y install docker 1>/dev/null",
+      "printf 'y\n' | sudo amazon-linux-extras install docker",
       "sudo service docker start",
       "sudo docker run -v /opt/openvpn/etc:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u ${var.proto}://${aws_instance.openvpn.public_ip}:${var.port} ${var.custom-vpn-settings}",
       "sudo docker run -v /opt/openvpn/etc:/etc/openvpn --rm -it kylemanna/openvpn bash -c \"printf '\\n' | ovpn_initpki nopass\" ",
